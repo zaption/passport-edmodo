@@ -1,0 +1,45 @@
+{
+  "name": "passport-edmodo",
+  "version": "0.0.1",
+  "description": "Edmodo Connect authentication strategy for Passport on Node.js ",
+  "keywords": [
+    "passport",
+    "edmodo",
+    "connect",
+    "oauth",
+    "authentication",
+    "identity"
+  ],
+  "author": {
+    "name": "Charlie Stigler",
+    "email": "charlie@zaption.com",
+    "url": "http://www.zaption.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/zaption/passport-edmodo.git"
+  },
+  "bugs": {
+    "url": "http://github.com/zaption/passport-edmodo/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "./lib",
+  "dependencies": {
+    "passport-oauth2": "1.x.x"
+  },
+  "devDependencies": {
+    "mocha": "1.x.x",
+    "chai": "1.x.x"
+  },
+  "engines": {
+    "node": ">= 0.4.0"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha --reporter spec --require test/bootstrap/node test/*.test.js"
+  }
+}
