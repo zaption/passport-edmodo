@@ -22,14 +22,14 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-// Use the EdmodoStrategy within Passport.
+//   Use the EdmodoStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Edmodo
 //   profile), and invoke a callback with a user object.
 passport.use(new EdmodoStrategy({
     clientID: EDMODO_CLIENT_ID,
     clientSecret: EDMODO_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/login/edmodo/callback"
+    callbackURL: "http://localhost:3000/login/edmodo/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
@@ -43,27 +43,19 @@ passport.use(new EdmodoStrategy({
   }
 ));
 
+var app = express();
 
-
-
-var app = express.createServer();
-
-// configure Express
-app.configure(function() {
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.use(express.logger());
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' }));
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
-});
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(require('morgan')('dev'));
+app.use(require('body-parser')());
+app.use(require('method-override')());
+app.use(require('express-session')({ secret: 'keyboard cat' }));
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', function(req, res){
