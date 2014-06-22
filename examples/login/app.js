@@ -1,7 +1,7 @@
-var express = require('express')
-  , passport = require('passport')
-  , util = require('util')
-  , EdmodoStrategy = require('passport-edmodo').Strategy;
+var express = require('express'),
+	passport = require('passport'),
+	util = require('util'),
+	EdmodoStrategy = require('passport-edmodo').Strategy;
 
 var EDMODO_CLIENT_ID = "--insert-edmodo-client-id-here--"
 var EDMODO_CLIENT_SECRET = "--insert-edmodo-client-secret-here--";
@@ -14,11 +14,11 @@ var EDMODO_CLIENT_SECRET = "--insert-edmodo-client-secret-here--";
 //   have a database of user records, the complete Edmodo profile is serialized
 //   and deserialized.
 passport.serializeUser(function(user, done) {
-  done(null, user);
+	done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+	done(null, obj);
 });
 
 
@@ -27,20 +27,20 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and Edmodo
 //   profile), and invoke a callback with a user object.
 passport.use(new EdmodoStrategy({
-    clientID: EDMODO_CLIENT_ID,
-    clientSecret: EDMODO_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/login/edmodo/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      // To keep the example simple, the user's Edmodo profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Edmodo account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  }
+		clientID: EDMODO_CLIENT_ID,
+		clientSecret: EDMODO_CLIENT_SECRET,
+		callbackURL: "http://localhost:3000/login/edmodo/callback"
+	},
+	function(accessToken, refreshToken, profile, done) {
+		// asynchronous verification, for effect...
+		process.nextTick(function () {
+			// To keep the example simple, the user's Edmodo profile is returned to
+			// represent the logged-in user.  In a typical application, you would want
+			// to associate the Edmodo account with a user record in your database,
+			// and return that user instead.
+			return done(null, profile);
+		});
+	}
 ));
 
 var app = express();
@@ -59,15 +59,15 @@ app.use(express.static(__dirname + '/public'));
 
 
 app.get('/', function(req, res){
-  res.render('index', { user: req.user });
+	res.render('index', { user: req.user });
 });
 
 app.get('/account', ensureAuthenticated, function(req, res){
-  res.render('account', { user: req.user });
+	res.render('account', { user: req.user });
 });
 
 app.get('/login', function(req, res){
-  res.render('login', { user: req.user });
+	res.render('login', { user: req.user });
 });
 
 // GET /login/edmodo
@@ -76,11 +76,11 @@ app.get('/login', function(req, res){
 //   the user to edmodo.com.  After authorization, Edmodo will redirect the user
 //   back to this application at /login/edmodo/callback
 app.get('/login/edmodo',
-  passport.authenticate('edmodo'),
-  function(req, res){
-    // The request will be redirected to Edmodo for authentication, so this
-    // function will not be called.
-  });
+	passport.authenticate('edmodo'),
+	function(req, res){
+		// The request will be redirected to Edmodo for authentication, so this
+		// function will not be called.
+	});
 
 // GET /login/edmodo/callback
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -88,14 +88,14 @@ app.get('/login/edmodo',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/login/edmodo/callback', 
-  passport.authenticate('edmodo', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+	passport.authenticate('edmodo', { failureRedirect: '/login' }),
+	function(req, res) {
+		res.redirect('/');
+	});
 
 app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
+	req.logout();
+	res.redirect('/');
 });
 
 app.listen(3000);
@@ -107,6 +107,6 @@ app.listen(3000);
 //   the request will proceed.  Otherwise, the user will be redirected to the
 //   login page.
 function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
+	if (req.isAuthenticated()) { return next(); }
+	res.redirect('/login')
 }
