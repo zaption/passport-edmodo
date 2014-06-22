@@ -65,7 +65,7 @@ For a complete, working example, refer to the [login example](https://github.com
 
 ## Credits
 
-  - [Charlie Stigler](http://github.com/cstigler) at [Zaption](http://github.com/zaption)
+  - [Charlie Stigler](http://github.com/cstigler) at [Zaption](http://www.zaption.com)
 
   - Based on [passport-github](http://github.com/jaredhanson/passport-github), by [Jared Hanson](http://github.com/jaredhanson)
 
