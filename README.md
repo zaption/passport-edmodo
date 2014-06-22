@@ -1,4 +1,5 @@
 # Passport-Edmodo
+[![Build Status](https://travis-ci.org/zaption/passport-edmodo.svg?branch=master)](https://travis-ci.org/zaption/passport-edmodo)[![Code Climate](https://codeclimate.com/github/zaption/passport-edmodo.png)](https://codeclimate.com/github/zaption/passport-edmodo)
 
 [Passport](http://passportjs.org/) strategy for authenticating with [Edmodo](http://edmodo.com/)
 using the OAuth 2.0 API.
