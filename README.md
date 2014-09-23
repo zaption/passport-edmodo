@@ -20,8 +20,9 @@ unobtrusively integrated into any application or framework that supports
 #### Configure Strategy
 
 The Edmodo authentication strategy authenticates users using a Edmodo account
-and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which accepts
-these credentials and calls `done` providing a user, as well as `options`
+and OAuth 2.0 tokens. It uses the code authentication flow by default, but can
+also be configured to use the token flow. The strategy requires a `verify` callback,
+which accepts these credentials and calls `done` providing a user, as well as `options`
 specifying a client ID, client secret, and callback URL.
 
     passport.use(new EdmodoStrategy({
@@ -47,11 +48,21 @@ application:
     app.get('/login/edmodo',
       passport.authenticate('edmodo'));
 
-    app.get('/login/edmodo/callback', 
+    app.get('/login/edmodo/callback',
       passport.authenticate('edmodo', { failureRedirect: '/login' }),
       function(req, res) {
         // Successful authentication, redirect home.
         res.redirect('/');
+      });
+
+By default, this will use the Edmodo code authentication flow. If you want to
+use the token authentication flow, pass the useTokenFlow option to authenticate,
+and send the access token as access_token in the body of your request:
+
+    app.get('/login/edmodo/callback',
+      passport.authenticate('edmodo', { useTokenFlow: true }),
+      function(req, res) {
+        console.log('Authenticated!');
       });
 
 ## Examples
