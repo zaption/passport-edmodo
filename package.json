@@ -1,6 +1,6 @@
 {
     "name": "passport-edmodo",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Edmodo Connect authentication strategy for Passport on Node.js ",
     "keywords": [
         "passport",
